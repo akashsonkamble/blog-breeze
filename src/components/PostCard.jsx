@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { service as appwriteService} from "../appwrite/config"
+import appwriteService from "../appwrite/config"
 
 const PostCard = ({ $id, title, featuredImage }) => {
   return (

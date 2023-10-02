@@ -1,4 +1,4 @@
-import Login from "../components";
+import { Login } from "../components";
 
 const LoginPage = () => {
     return <div className="py-8">

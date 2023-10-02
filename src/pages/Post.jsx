@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { service as appwriteService } from "../appwrite/config";
+import appwriteService  from "../appwrite/config";
 import { Button, Container } from "../components";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
@@ -66,5 +66,4 @@ const PostPage = () => {
     ) : null;
 };
 
-export default Post;
-Page
+export default PostPage;

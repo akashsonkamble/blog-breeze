@@ -1,4 +1,5 @@
-import Signup from "../components"
+import { Signup } from "../components";
+
 const SignupPage = () => {
     return (
         <div className="py-8">
