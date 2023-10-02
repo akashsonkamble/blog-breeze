@@ -6,13 +6,13 @@ const RTE = ({ name, control, label, defaultValue = "" }) => {
   return <div className="w-full">
     { label && <label className="inline-block mb-1 pl-1" htmlFor={name}>{label}</label>}
     <Controller
-    name={name}
+    name={name || "content"}
     control={control}
-    initialValue={defaultValue}
     render={({ field: { onChange }}) => (
       <Editor
-      {...field}
+      initialValue={defaultValue}
       init={{
+        initialValue: defaultValue,
         height: 500,
         menubar: true,
         plugins: [
