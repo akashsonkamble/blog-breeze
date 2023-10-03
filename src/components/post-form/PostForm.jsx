@@ -101,7 +101,7 @@ const PostForm = ({ post }) => {
                 <Input
                     label="Featured Image :"
                     type="file"
-                    className="mb-4"
+                    className="block w-full mb-4 text-sm text-gray-400"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
                 />
@@ -117,7 +117,7 @@ const PostForm = ({ post }) => {
                 <Select
                     options={["active", "inactive"]}
                     label="Status"
-                    className="mb-4"
+                    className="mb-4 mt-5"
                     {...register("status", { required: true })}
                 />
                 <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
