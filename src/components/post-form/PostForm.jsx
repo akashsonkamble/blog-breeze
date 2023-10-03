@@ -101,7 +101,7 @@ const PostForm = ({ post }) => {
                 <Input
                     label="Featured Image :"
                     type="file"
-                    className="block w-full mb-4 text-sm text-gray-400"
+                    className="block w-full mb-4 text-xs text-gray-400"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
                 />
