@@ -41,6 +41,10 @@ export class AuthService {
         try {
             return await this.account.createEmailSession(email, password);
         } catch (error) {
+            if (error.code === 400) {
+                const errorMessage = "Invalid email or password.";
+                throw new Error(errorMessage);
+            }
             console.log("Appwrite service :: login :: error", error);
             throw error;
             
