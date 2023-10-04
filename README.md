@@ -1,8 +1,28 @@
-# React + Vite
+# BlogBreeze
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Signup Page](./public/sign-up.png)
+![Signin Page](./public/sign-in.png)
+![Home Page](./public/home.png)
+![Post Details](./public/post-details.png)
+![Add Post Page](./public/add-post.png)
+![Update Post Page](./public/update-post.png)
 
-Currently, two official plugins are available:
+## Description
+Designed and developed a full-featured blog application using React, enabling users to create, read, update, and delete blog posts. The application leverages Appwrite for backend services and incorporates various frontend technologies and libraries.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+1. Implemented full CRUD (Create, Read, Update, Delete) operations for blog posts.
+2. Integrated user authentication and authorization using Appwrite for secure access.
+3. Utilized React Router DOM for efficient navigation and routing within the application.
+4. Improved form handling and validation using React Hook Form for a smoother user input process.
+5. Enabled dynamic rendering of HTML content in blog posts using HTML React Parser.
+
+## Tech Stack
+Frontend: React, React Router DOM, React Redux
+Styling: Tailwind CSS
+Form Handling: React Hook Form
+Backend Services: Appwrite
+Data Parsing: HTML React Parser
+
+## Getting Started
+Clone this repository to your local machine using git clone https://github.com/akashsonkamble/blog-breeze.git Navigate to the project directory and install dependencies using npm install Start the development server using npm run dev Open your web browser and visit http://localhost:5173 to see the app in action.
