@@ -21,7 +21,7 @@ const PostForm = ({ post }) => {
 
     const submit = async (data) => {
         if (post) {
-            const file = data.image[0] ? appwriteService.uploadFile(data.image[0]) : null;
+            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
 
             if (file) {
                 appwriteService.deleteFile(post.featuredImage);
@@ -33,7 +33,7 @@ const PostForm = ({ post }) => {
                 }
                 )
             if (dbPost) {
-                navigate(`/post/${post.$id}`);
+                navigate(`/post/${dbPost.$id}`);
             }
 
         } else {
@@ -120,7 +120,7 @@ const PostForm = ({ post }) => {
                     className="mb-4 mt-5"
                     {...register("status", { required: true })}
                 />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
+                <Button type="submit" bgColor={post ? "bg-[#1b4436]" : undefined} className="w-full">
                     {post ? "Update" : "Submit"}
                 </Button>
             </div>
