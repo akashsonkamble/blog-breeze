@@ -3,8 +3,8 @@
 ![Signup Page](./public/sign-up.png)
 ![Signin Page](./public/sign-in.png)
 ![Home Page](./public/home.png)
-![Post Details](./public/post-details.png)
 ![Add Post Page](./public/add-post.png)
+![Post Details](./public/post-details.png)
 ![Update Post Page](./public/update-post.png)
 
 ## Description
