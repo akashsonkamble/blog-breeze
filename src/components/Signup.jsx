@@ -5,11 +5,11 @@ import { Button, Input, Logo } from "./index";
 import { login } from "../store/authSlice";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [error, setError] = useState("");
   const { register, handleSubmit } = useForm();
 
   const create = async (data) => {
@@ -19,11 +19,12 @@ const Signup = () => {
         const userData = await authService.getCurrentUser();
         if (userData) {
           dispatch(login(userData));
+          toast.success("Account created successfully");
           navigate("/");
         }
       }
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
     }
   };
   return (
@@ -50,7 +51,6 @@ const Signup = () => {
             Sign In
           </Link>
         </p>
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
         <form onSubmit={handleSubmit(create)} className="mt-8">
           <div className="space-y-5">

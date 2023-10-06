@@ -29,6 +29,10 @@ export class Service{
                 }               
             )
         } catch (error) {
+            if (error.code === 400) {
+                const errorMessage = "Value must be a valid string and no longer than 250 chars";
+                throw new Error(errorMessage);
+            }
             console.log("Appwrite Service :: createPost :: error", error);
         }
     }
@@ -49,6 +53,7 @@ export class Service{
             )
         } catch (error) {
             console.log("Appwrite Service :: updatePost :: error", error);
+            throw error;
         }
     }
 
@@ -59,7 +64,6 @@ export class Service{
                 conf.appwriteCollectionId,
                 slug
             )
-            return true;
         } catch (error) {
             console.log("Appwrite Service :: deletePost :: error", error);
             return false;
@@ -87,6 +91,10 @@ export class Service{
                 queries
             )
         } catch (error) {
+            if (error.code === 401) {
+                console.log("User is not logged in");
+                return null;
+            }
             console.log("Appwrite Service :: getPosts :: error", error);
             return false;
         }
@@ -112,7 +120,6 @@ export class Service{
                 conf.appwriteBucketId,
                 fileId
             )
-            return true;
         } catch (error) {
             console.log("Appwrite Service :: deleteFile :: error", error);
             return false;

@@ -4,6 +4,7 @@ import authService from "../../appwrite/auth"
 import { logout } from "../../store/authSlice"
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LogoutBtn = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const LogoutBtn = () => {
   const logoutHandler = () => {
     authService.logout().then(() => {
         dispatch(logout())
+        toast.success("Logged out successfully");
         navigate("/login");
         
     })

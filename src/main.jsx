@@ -12,6 +12,7 @@ import AddPostPage from "./pages/AddPost.jsx";
 import AllPostsPage from "./pages/AllPosts.jsx";
 import EditPostPage from "./pages/EditPost.jsx";
 import PostPage from "./pages/Post.jsx";
+import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 
 const router = createBrowserRouter([

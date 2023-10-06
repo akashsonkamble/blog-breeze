@@ -4,6 +4,7 @@ import appwriteService  from "../appwrite/config";
 import { Button, Container } from "../components";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
+import { toast } from "react-toastify";
 
 const PostPage = () => {
     const [post, setPost] = useState(null);
@@ -27,6 +28,7 @@ const PostPage = () => {
         appwriteService.deletePost(post.$id).then((status) => {
             if (status) {
                 appwriteService.deleteFile(post.featuredImage);
+                toast.success("Post deleted successfully");
                 navigate("/");
             }
         });
