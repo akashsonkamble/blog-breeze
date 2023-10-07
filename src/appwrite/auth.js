@@ -30,6 +30,11 @@ export class AuthService {
                 const errorMessage = "Password must be at least 8 characters long.";
                 throw new Error(errorMessage);
             }
+            
+            if (error.code === 409) {
+                const errorMessage = "Email already exists.";
+                throw new Error(errorMessage);
+            }
             console.log("Appwrite service :: createAccount :: error", error);
             throw error;
             
