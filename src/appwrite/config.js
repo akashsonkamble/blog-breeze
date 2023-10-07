@@ -16,24 +16,27 @@ export class Service{
 
     async createPost({title, slug, content, featuredImage, status, userId}) {
         try {
-            return await this.databases.createDocument(
-                conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
-                slug,
-                {
-                    title,
-                    content,
-                    featuredImage,
-                    status,
-                    userId,
-                }               
-            )
+            // if (content.length < 250) {
+                return await this.databases.createDocument(
+                    conf.appwriteDatabaseId,
+                    conf.appwriteCollectionId,
+                    slug,
+                    {
+                        title,
+                        content,
+                        featuredImage,
+                        status,
+                        userId,
+                    }               
+                    )
+            // }
         } catch (error) {
-            if (error.code === 400) {
-                const errorMessage = "Value must be a valid string and no longer than 250 chars";
-                throw new Error(errorMessage);
-            }
+            // if (error.code === 400 || content.length > 250) {
+            //     const errorMessage = "Value must be a valid string and no longer than 250 chars";
+            //     throw new Error(errorMessage);
+            // }
             console.log("Appwrite Service :: createPost :: error", error);
+            throw error;
         }
     }
 
