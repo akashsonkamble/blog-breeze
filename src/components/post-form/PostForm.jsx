@@ -48,15 +48,15 @@ const PostForm = ({ post }) => {
                     data.userId = userData?.$id;
                     
                     const content = data.content;
-                    if (content && content.length < 250) {
+                    // if (content && content.length < 250) {
                         const dbPost = await appwriteService.createPost(data);
                         if (dbPost) {
                             toast.success("Post created successfully");
                             navigate(`/post/${dbPost.$id}`);
                         }
-                    } else {
-                        toast.error("Content must be a valid string and no longer than 250 chars");
-                    }
+                    // } else {
+                    //     toast.error("Content must be a valid string and no longer than 250 chars");
+                    // }
                 }
             }
         } catch (error) {

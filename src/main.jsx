@@ -12,6 +12,7 @@ import AddPostPage from "./pages/AddPost.jsx";
 import AllPostsPage from "./pages/AllPosts.jsx";
 import EditPostPage from "./pages/EditPost.jsx";
 import PostPage from "./pages/Post.jsx";
+import ErrorPage from "./pages/Error.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
