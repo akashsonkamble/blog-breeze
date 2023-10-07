@@ -29,10 +29,6 @@ export class Service{
                 }               
             )
         } catch (error) {
-            // if (error.code === 400) {
-            //     const errorMessage = "Value must be a valid string and no longer than 250 chars";
-            //     throw new Error(errorMessage);
-            // }
             console.log("Appwrite Service :: createPost :: error", error);
             throw error;
         }

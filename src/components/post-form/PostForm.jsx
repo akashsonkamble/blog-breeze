@@ -21,11 +21,8 @@ const PostForm = ({ post }) => {
     const userData = useSelector(state => state.auth.userData);
 
     const submit = async (data) => {
-        console.log("data :: submit  :: ", data);
         try {
             if (post) {
-
-                console.log("post :: updatePost :: ", post);
                 const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
 
                 if (file && post.featuredImage) {
@@ -53,7 +50,6 @@ const PostForm = ({ post }) => {
                     const content = data.content;
                     if (content && content.length < 250) {
                         const dbPost = await appwriteService.createPost(data);
-                        // console.log("dbPost :: createPost :: ", dbPost);
                         if (dbPost) {
                             toast.success("Post created successfully");
                             navigate(`/post/${dbPost.$id}`);
@@ -65,7 +61,6 @@ const PostForm = ({ post }) => {
             }
         } catch (error) {
             if (error.code === 400) {
-                // const errorMessage = "Something went wrong!";
                 toast.error(error);
             }
             toast.error(error);

@@ -61,7 +61,6 @@ export class AuthService {
             return await this.account.get();
         } catch (error) {
             if (error.code === 401) {
-                // console.log("User is not logged in");
                 return null;
             }
             console.log("Appwrite service :: getCurrentUser :: error", error);
