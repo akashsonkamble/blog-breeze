@@ -6,7 +6,6 @@ import Header from "./components/Header/Header";
 import { Outlet } from "react-router";
 import Footer from "./components/Footer/Footer";
 import { ToastContainer } from "react-toastify";
-import "./App.css";
 
 function App() {
   const [loading, setLoading] = useState(true);
