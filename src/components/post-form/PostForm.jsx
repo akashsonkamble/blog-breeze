@@ -53,7 +53,7 @@ const PostForm = ({ post }) => {
                     const content = data.content;
                     if (content && content.length < 250) {
                         const dbPost = await appwriteService.createPost(data);
-                        console.log("dbPost :: createPost :: ", dbPost);
+                        // console.log("dbPost :: createPost :: ", dbPost);
                         if (dbPost) {
                             toast.success("Post created successfully");
                             navigate(`/post/${dbPost.$id}`);
@@ -65,9 +65,10 @@ const PostForm = ({ post }) => {
             }
         } catch (error) {
             if (error.code === 400) {
-                const errorMessage = "Something went wrong!";
-                toast.error(errorMessage);
+                // const errorMessage = "Something went wrong!";
+                toast.error(error);
             }
+            toast.error(error);
             console.log("PostForm :: submit :: error", error);
             return null;
         }

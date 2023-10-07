@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Container, PostCard } from "../components";
 import appwriteService  from "../appwrite/config";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
+    const authStatus = useSelector(state => state.auth.status);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -13,7 +15,7 @@ const HomePage = () => {
         })
     }, []);
 
-    if (posts.length === 0) {
+    if (authStatus === false) {
         return (
             <div className="w-full py-8 mt-4 text-center">
                 <Container>
@@ -28,7 +30,22 @@ const HomePage = () => {
             </div>
         )
     }
-
+    
+    if (posts.length === 0 && authStatus === true) {
+        return (
+            <div className="w-full py-8 mt-4 text-center">
+                <Container>
+                    <div className="flex flex-wrap">
+                        <div className="p-2 w-full">
+                            <h1 className="text-2xl font-bold hover:text-gray-500">
+                                No posts to show
+                            </h1>
+                        </div>
+                    </div>
+                </Container>
+            </div>
+        )
+    }
     
     return (
         <div className="w-full py-8">
