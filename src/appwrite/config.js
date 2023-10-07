@@ -16,22 +16,20 @@ export class Service{
 
     async createPost({title, slug, content, featuredImage, status, userId}) {
         try {
-            // if (content.length < 250) {
-                return await this.databases.createDocument(
-                    conf.appwriteDatabaseId,
-                    conf.appwriteCollectionId,
-                    slug,
-                    {
-                        title,
-                        content,
-                        featuredImage,
-                        status,
-                        userId,
-                    }               
-                    )
-            // }
+            return await this.databases.createDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                slug,
+                {
+                    title,
+                    content,
+                    featuredImage,
+                    status,
+                    userId,
+                }               
+            )
         } catch (error) {
-            // if (error.code === 400 || content.length > 250) {
+            // if (error.code === 400) {
             //     const errorMessage = "Value must be a valid string and no longer than 250 chars";
             //     throw new Error(errorMessage);
             // }
