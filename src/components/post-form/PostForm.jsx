@@ -47,16 +47,11 @@ const PostForm = ({ post }) => {
                     data.featuredImage = file.$id;
                     data.userId = userData?.$id;
                     
-                    const content = data.content;
-                    // if (content && content.length < 250) {
-                        const dbPost = await appwriteService.createPost(data);
-                        if (dbPost) {
-                            toast.success("Post created successfully");
-                            navigate(`/post/${dbPost.$id}`);
-                        }
-                    // } else {
-                    //     toast.error("Content must be a valid string and no longer than 250 chars");
-                    // }
+                    const dbPost = await appwriteService.createPost(data);
+                    if (dbPost) {
+                        toast.success("Post created successfully");
+                        navigate(`/post/${dbPost.$id}`);
+                    }
                 }
             }
         } catch (error) {
@@ -119,6 +114,9 @@ const PostForm = ({ post }) => {
                     className="block w-full mb-4 text-xs text-gray-400"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
+                    onChange={() => {
+                        toast.success("File uploaded successfully");
+                    }}
                 />
                 {post && (
                     <div className="w-full mb-4">
