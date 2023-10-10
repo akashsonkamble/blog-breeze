@@ -25,7 +25,6 @@ const PostForm = ({ post }) => {
 
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
-  console.log("PostForm :: userData :: ", userData);
   const [featuredImage, setFeaturedImage] = useState(
     post ? appwriteService.getFilePreview(post.featuredImage) : null
   );
@@ -60,9 +59,12 @@ const PostForm = ({ post }) => {
 
         if (file) {
           data.featuredImage = file.$id;
-          data.userId = userData?.$id;
+        //   data.userId = userData?.$id;
 
-          const dbPost = await appwriteService.createPost(data);
+          const dbPost = await appwriteService.createPost({
+            ...data,
+            userId: userData.$id,
+          });
           if (dbPost) {
             toast.success("Post created successfully");
             navigate(`/post/${dbPost.$id}`);
