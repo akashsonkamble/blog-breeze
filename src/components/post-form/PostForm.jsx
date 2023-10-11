@@ -59,12 +59,9 @@ const PostForm = ({ post }) => {
 
         if (file) {
           data.featuredImage = file.$id;
-        //   data.userId = userData?.$id;
+          data.userId = userData?.$id;
 
-          const dbPost = await appwriteService.createPost({
-            ...data,
-            userId: userData.$id,
-          });
+          const dbPost = await appwriteService.createPost(data);
           if (dbPost) {
             toast.success("Post created successfully");
             navigate(`/post/${dbPost.$id}`);
