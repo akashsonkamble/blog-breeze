@@ -3,10 +3,15 @@ import { useForm } from "react-hook-form";
 import { Button, Input, Select, RTE } from "../index";
 import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addPost, updatePost } from "../../store/postSlice";
 import { toast } from "react-toastify";
 
 const PostForm = ({ post }) => {
+  const navigate = useNavigate();
+  const userData = useSelector((state) => state.auth.userData);
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -22,15 +27,12 @@ const PostForm = ({ post }) => {
       status: post?.status || "active",
     },
   });
-
-  const navigate = useNavigate();
-  const userData = useSelector((state) => state.auth.userData);
   const [featuredImage, setFeaturedImage] = useState(
     post ? appwriteService.getFilePreview(post.featuredImage) : null
   );
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const submit = async (data) => {
+  const submitHandler = async (data) => {
     try {
       if (post) {
         const file =
@@ -49,6 +51,7 @@ const PostForm = ({ post }) => {
 
         if (dbPost) {
           toast.success("Post updated successfully");
+          dispatch(updatePost({ postId: post.$id, updatedData: data }));
           navigate(`/post/${dbPost.$id}`);
         }
       } else {
@@ -64,6 +67,7 @@ const PostForm = ({ post }) => {
           const dbPost = await appwriteService.createPost(data);
           if (dbPost) {
             toast.success("Post created successfully");
+            dispatch(addPost(dbPost));
             navigate(`/post/${dbPost.$id}`);
           }
         }
@@ -124,7 +128,7 @@ const PostForm = ({ post }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
+    <form onSubmit={handleSubmit(submitHandler)} className="flex flex-wrap">
       <div className="w-2/3 px-2">
         <Input
           label="Title :"
