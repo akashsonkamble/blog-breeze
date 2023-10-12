@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import appwriteService  from "../appwrite/config";
+
 import { Button, Container } from "../components";
-import { useSelector } from "react-redux";
-import parse from "html-react-parser";
+
+import { Link, useNavigate, useParams } from "react-router-dom";
+
+import { useSelector, useDispatch } from "react-redux";
+
+import appwriteService  from "../appwrite/config";
+
+import { deletePost } from "../store/postSlice";
+
 import { toast } from "react-toastify";
 
+import parse from "html-react-parser";
+
 const PostPage = () => {
-    const [post, setPost] = useState(null);
-    const { slug } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { slug } = useParams();
+    const [post, setPost] = useState(null);
 
     const userData = useSelector((state) => state.auth.userData);
 
@@ -17,18 +26,19 @@ const PostPage = () => {
 
     useEffect(() => {
         if (slug) {
-            appwriteService.getPost(slug).then((post) => {
-                if (post) setPost(post);
+            appwriteService.getPost(slug).then((fetchedPost) => {
+                if (fetchedPost) setPost(fetchedPost);
                 else navigate("/");
             });
         } else navigate("/");
     }, [slug, navigate]);
 
-    const deletePost = () => {
+    const deletePostHandler = () => {
         appwriteService.deletePost(post.$id).then((status) => {
             if (status) {
                 appwriteService.deleteFile(post.featuredImage);
                 toast.success("Post deleted successfully");
+                dispatch(deletePost(post.$id));
                 navigate("/");
             }
         });
@@ -51,7 +61,7 @@ const PostPage = () => {
                                     Edit
                                 </Button>
                             </Link>
-                            <Button bgColor="bg-[#b70000]" onClick={deletePost}>
+                            <Button bgColor="bg-[#b70000]" onClick={deletePostHandler}>
                                 Delete
                             </Button>
                         </div>
@@ -62,7 +72,7 @@ const PostPage = () => {
                 </div>
                 <div className="browser-css">
                     {parse(post.content)}
-                    </div>
+                </div>
             </Container>
         </div>
     ) : null;

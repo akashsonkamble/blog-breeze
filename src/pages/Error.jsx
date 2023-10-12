@@ -7,11 +7,11 @@ const ErrorPage = () => {
         <>
             <header className="py-3 bg-#d2e2f2 border-b-2 border-500">
                 <Container>
-                <div className="mr-4">
-                    <Link to="/">
-                        <Logo width="150px" />
-                    </Link>
-                </div>
+                    <div className="mr-4">
+                        <Link to="/">
+                            <Logo width="150px" />
+                        </Link>
+                    </div>
                 </Container>
             </header>
             <div className="w-full py-8 mt-4 text-center">
