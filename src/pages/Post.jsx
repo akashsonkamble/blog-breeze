@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import appwriteService  from "../appwrite/config";
+
 import { Button, Container } from "../components";
+
+import { Link, useNavigate, useParams } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
+
+import appwriteService  from "../appwrite/config";
+
 import { deletePost } from "../store/postSlice";
-import parse from "html-react-parser";
+
 import { toast } from "react-toastify";
 
+import parse from "html-react-parser";
+
 const PostPage = () => {
-    const [post, setPost] = useState(null);
-    const { slug } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { slug } = useParams();
+    const [post, setPost] = useState(null);
 
     const userData = useSelector((state) => state.auth.userData);
 
@@ -65,7 +72,7 @@ const PostPage = () => {
                 </div>
                 <div className="browser-css">
                     {parse(post.content)}
-                    </div>
+                </div>
             </Container>
         </div>
     ) : null;

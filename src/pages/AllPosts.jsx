@@ -1,17 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+
 import { Container, PostCard } from '../components';
+
+import { useSelector, useDispatch } from "react-redux";
+
 import appwriteService  from "../appwrite/config";
 
+import { setPosts } from "../store/postSlice";
+
 const AllPostsPage = () => {
-    const [posts, setPosts] = useState([]);
+    const dispatch = useDispatch();
+    const posts = useSelector((state) => state.post.posts);
 
     useEffect(() => {
-        appwriteService.getPosts().then((posts) => {
-            if (posts) {
-                setPosts(posts.documents);
-            }
-        })
-    }, []);
+        if (!posts.length) {
+            appwriteService.getPosts().then((fetchedPosts) => {
+                if (fetchedPosts) {
+                    dispatch(setPosts(fetchedPosts.documents));
+                }
+            });
+        }
+    }, [dispatch, posts]);
 
     if (posts.length === 0) {
         return (
@@ -19,7 +28,7 @@ const AllPostsPage = () => {
                 <Container>
                     <div className="flex flex-wrap">
                         <div className="p-2 w-full">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
+                            <h1 className="text-2xl font-bold">
                                 No posts to show
                             </h1>
                         </div>
@@ -29,17 +38,19 @@ const AllPostsPage = () => {
         )
     }
 
-    return <div className="w-full py-8">
-        <Container>
-            <div className="flex flex-wrap">
-                {posts.map((post) => (
-                    <div key={post.$id} className="p-2 w-1/4">
-                        <PostCard {...post} />
-                    </div>
-                ))}
-            </div>
-        </Container>
-    </div>;
+    return (
+        <div className="w-full py-8">
+            <Container>
+                <div className="flex flex-wrap">
+                    {posts.map((post) => (
+                        <div key={post.$id} className="p-2 w-1/4">
+                            <PostCard {...post} />
+                        </div>
+                    ))}
+                </div>
+            </Container>
+        </div>
+    );
 };
 
 export default AllPostsPage;

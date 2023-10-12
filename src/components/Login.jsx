@@ -1,9 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
-import { login as authLogin } from "../store/authSlice";
 import { Button, Input, Logo } from "./index";
+
+import { Link, useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
-import authService from "../appwrite/auth";
+
+import { login as authLogin } from "../store/authSlice";
+
 import { useForm } from "react-hook-form";
+
+import authService from "../appwrite/auth";
+
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -11,11 +17,13 @@ const Login = () => {
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
 
-    const login = async (data) => {
+    const loginHandler = async (data) => {
         try {
             const session = await authService.login(data);
+
             if (session) {
                 const userData = await authService.getCurrentUser();
+
                 if (userData) {
                     dispatch(authLogin(userData));
                     toast.success("Logged in successfully");
@@ -48,34 +56,36 @@ const Login = () => {
                 </Link>
             </p>
 
-            <form onSubmit={handleSubmit(login)} className="mt-8">
+            <form onSubmit={handleSubmit(loginHandler)} className="mt-8">
                 <div className="space-y-5">
                     <Input 
-                    label="Email: "
-                    placeholder="Enter your email"
-                    type="email"
-                    {...register("email", {
-                        required: true,
-                        validate: {
-                            matchPattern: (value) => 
-                                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                                "Email address must be a valid address"
-                            
-                        }
-                    })}
+                        label="Email: "
+                        placeholder="Enter your email"
+                        type="email"
+                        {...register("email", {
+                            required: true,
+                            validate: {
+                                matchPattern: (value) => 
+                                    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                                    "Email address must be a valid address"
+                                
+                            }
+                        })}
                     />
                     <Input
-                    label="Password: "
-                    placeholder="Enter your password"
-                    type="password"
-                    {...register("password", {
-                        required: true,
-                    })}
+                        label="Password: "
+                        placeholder="Enter your password"
+                        type="password"
+                        {...register("password", {
+                            required: true,
+                        })}
                     />
                     <Button
-                    type="submit"
-                    className="w-full"
-                    >Sign In</Button>
+                        type="submit"
+                        className="w-full"
+                    >
+                        Sign In
+                    </Button>
                 </div>
             </form>
         </div>
