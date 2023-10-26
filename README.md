@@ -1,5 +1,10 @@
 # BlogBreeze
 
+**Test User:**
+- Username: user1
+- Email: user1@example.com
+- Password: password123
+
 ![Signup Page](./public/sign-up.png)
 ![Signin Page](./public/sign-in.png)
 ![Home Page](./public/home.png)
