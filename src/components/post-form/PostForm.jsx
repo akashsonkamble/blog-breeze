@@ -17,7 +17,6 @@ const PostForm = ({ post }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.auth.userData);
-    console.log("PostForm :: userData :: ", userData);
 
     const {
         register,
