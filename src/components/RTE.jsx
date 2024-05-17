@@ -1,32 +1,41 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import { Controller } from "react-hook-form";
-import { Editor } from "@tinymce/tinymce-react";
+
+import JoditEditor from 'jodit-react';
+
 import { toast } from "react-toastify";
 
 const RTE = ({
-    name,
+    name = "content",
     control,
     label,
     defaultValue = "",
-    maxLength = 257,
+    maxLength = 250,
 }) => {
     const [content, setContent] = useState(defaultValue);
 
-    const keyDownHandler = (e) => {
-        const regex = /[!@#$%^&*(),.?":{}|<>]/;
+    const config = {
+        readonly: false,
+        menubar: true,
+        height: 300,
+        toolbar: true,
+        placeholder: "Type here...",
+    }
 
-        if (regex.test(e.key)) {
+    const keyDownHandler = (e) => {
+        const { key } = e;
+        const specialCharactersRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
+        if (specialCharactersRegex.test(key)) {
             e.preventDefault();
             toast.error("Special characters are not allowed");
             return;
         }
 
-        const allowedKeys = /^(Backspace|Delete|Tab|Enter|Shift|Control|Alt|CapsLock|ArrowLeft|ArrowRight|ArrowUp|ArrowDown|ShiftLeft|ShiftRight|ControlLeft|ControlRight|AltLeft|AltRight|Home|End)$/;
-
-        if (content.length >= maxLength && !allowedKeys.test(e.key)) {
+        if (content.length >= maxLength && key !== "Backspace" && key !== "Delete") {
             e.preventDefault();
-            toast.error("Content must be no longer than 250 characters");
-            return;
+            toast.error(`Content must be no longer than ${maxLength} characters`);
         }
   };
 
@@ -50,46 +59,13 @@ const RTE = ({
             name={name || "content"}
             control={control}
             render={({ field: { onChange } }) => (
-            <>
-                <Editor
-                initialValue={defaultValue}
-                value={content}
-                init={{
-                    height: 300,
-                    menubar: true,
-                    plugins: [
-                    "image",
-                    "advert",
-                    "autolink",
-                    "lists",
-                    "link",
-                    "charmap",
-                    "preview",
-                    "anchor",
-                    "searchreplace",
-                    "visualblocks",
-                    "code",
-                    "fullscreen",
-                    "insertdatetime",
-                    "media",
-                    "table",
-                    "help",
-                    "wordcount",
-                    ],
-                    toolbar:
-                    "undo redo | formatselect | bold italic backcolor | \
-                            alignleft aligncenter alignright alignjustify | \
-                            bullist numlist outdent indent | removeformat | help",
-                    content_style:
-                    "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
-                }}
-                onEditorChange={(content) => {
-                    editorChangeHandler(content);
-                    onChange(content);
-                }}
-                onKeyDown={keyDownHandler}
+                <JoditEditor
+                    value={content}
+                    config={config}
+                    tabIndex={1}
+                    onKeyDown={keyDownHandler}
+                    onBlur={(newContent) => setContent(newContent)}
                 />
-            </>
             )}
         />
     </div>
