@@ -4,19 +4,25 @@
 - Username: user1
 - Email: user1@example.com
 - Password: password123
+![Signup Page](./public/responsive_sign-up.png)
+![Signin Page](./public/responsive_sign-in.png)
+![Home Page](./public/responsive_home.png)
+![Add Post Page](./public/responsive_add-post.png)
+![Post Details Page](./public/responsive_post-details.png)
+![Update Post Page](./public/responsive_update-post.png)
 
 ![Signup Page](./public/sign-up.png)
 ![Signin Page](./public/sign-in.png)
 ![Home Page](./public/home.png)
 ![Add Post Page](./public/add-post.png)
-![Post Details](./public/post-details.png)
+![Post Details Page](./public/post-details.png)
 ![Update Post Page](./public/update-post.png)
 
 ## Description
 Designed and developed a full-featured blog application using React, enabling users to create, read, update, and delete blog posts. The application leverages Appwrite for backend services and incorporates various frontend technologies and libraries.
 
 ## Features
-1. Implemented full CRUD (Create, Read, Update, Delete) operations for blog posts.
+1. Implemented full responsive CRUD (Create, Read, Update, Delete) operations for blog posts.
 2. Integrated user authentication and authorization using Appwrite for secure access.
 3. Utilized React Router DOM for efficient navigation and routing within the application.
 4. Improved form handling and validation using React Hook Form for a smoother user input process.
