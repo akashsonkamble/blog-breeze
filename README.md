@@ -29,11 +29,14 @@ Designed and developed a full-featured blog application using React, enabling us
 5. Enabled dynamic rendering of HTML content in blog posts using HTML React Parser.
 
 ## Tech Stack
-Frontend: React, React Router DOM, React Redux
-Styling: Tailwind CSS
-Form Handling: React Hook Form
-Backend Services: Appwrite
-Data Parsing: HTML React Parser
+1. Frontend: React, React Router DOM, React Redux
+2. Styling: Tailwind CSS
+3. Form Handling: React Hook Form
+4. Backend Services: Appwrite
+5. Data Parsing: HTML React Parser
 
 ## Getting Started
-Clone this repository to your local machine using git clone https://github.com/akashsonkamble/blog-breeze.git Navigate to the project directory and install dependencies using npm install Start the development server using npm run dev Open your web browser and visit http://localhost:5173 to see the app in action.
+Clone this repository to your local machine using git clone `https://github.com/akashsonkamble/blog-breeze.git`.
+Navigate to the project directory and install dependencies using `npm install`.
+Start the development server using `npm run dev`.
+Open your web browser and visit `http://localhost:5173` to see the app in action.
