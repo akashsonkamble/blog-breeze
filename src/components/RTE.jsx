@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import { Controller } from "react-hook-form";
 
@@ -13,63 +13,54 @@ const RTE = ({
     defaultValue = "",
     maxLength = 250,
 }) => {
+    const editor = useRef(null);
     const [content, setContent] = useState(defaultValue);
 
-    const config = {
-        readonly: false,
-        menubar: true,
-        height: 300,
-        toolbar: true,
-        placeholder: "Type here...",
-    }
+    const config = useMemo(() => ({
+        placeholder: "Start typing...",
+        buttons: [ "bold", "italic", "underline", "strikethrough", "|", "ul", "ol", "|", "center", "left", "right", "justify", "|", "link", "image"],
+        uploader: { insertImageAsBase64URI: false },
+        removeButtons: ["brush", "file"],
+        showXPathInStatusbar: false,
+        showCharsCounter: false,
+        showWordsCounter: false,
+        toolbarAdaptive: false
+    }), []);
 
-    const keyDownHandler = (e) => {
-        const { key } = e;
-        const specialCharactersRegex = /[!@#$%^&*(),.?":{}|<>]/;
-
-        if (specialCharactersRegex.test(key)) {
-            e.preventDefault();
-            toast.error("Special characters are not allowed");
-            return;
-        }
-
-        if (content.length >= maxLength && key !== "Backspace" && key !== "Delete") {
-            e.preventDefault();
-            toast.error(`Content must be no longer than ${maxLength} characters`);
-        }
-  };
-
-    const editorChangeHandler = (newContent) => {
+    const editorChangeHandler = (newContent, onChange) => {
         if (newContent.length <= maxLength) {
             setContent(newContent);
+            onChange(newContent);
         } else {
             const truncatedContent = newContent.slice(0, maxLength);
+            toast.error(`Content must be no longer than ${maxLength} characters`);
             setContent(truncatedContent);
+            onChange(truncatedContent);
         }
     };
 
-  return (
-    <div className="w-full">
-        {label && (
-            <label className="inline-block mb-1 pl-1" htmlFor={name}>
-                {label}
-            </label>
-        )}
-        <Controller
-            name={name || "content"}
-            control={control}
-            render={({ field: { onChange } }) => (
-                <JoditEditor
-                    value={content}
-                    config={config}
-                    tabIndex={1}
-                    onKeyDown={keyDownHandler}
-                    onBlur={(newContent) => setContent(newContent)}
-                />
+    return (
+        <div className="w-full">
+            {label && (
+                <label className="inline-block mb-1 pl-1" htmlFor={name}>
+                    {label}
+                </label>
             )}
-        />
-    </div>
-  );
+            <Controller
+                name={name || "content"}
+                control={control}
+                render={({ field: { onChange } }) => (
+                    <JoditEditor
+                        ref={editor}
+                        value={content}
+                        config={config}
+                        tabIndex={1}
+                        onChange={(newContent) => editorChangeHandler(newContent, onChange)}
+                    />
+                )}
+            />
+        </div>
+    );
 };
 
 export default RTE;
