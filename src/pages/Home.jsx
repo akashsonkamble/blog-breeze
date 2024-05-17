@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import { Container, PostCard } from "../components";
 
@@ -59,9 +59,9 @@ const HomePage = () => {
     return (
         <div className="w-full py-8">
             <Container>
-                <div className="flex flex-wrap">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {posts.map((post) => (
-                        <div key={post.$id} className="p-2 w-1/4">
+                        <div key={post.$id} className="p-2">
                             <PostCard {...post} />
                         </div>
                     ))}

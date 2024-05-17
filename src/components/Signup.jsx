@@ -30,13 +30,13 @@ const  Signup = () => {
                     navigate("/");
                 }
             }
-            } catch (error) {
-                toast.error(error.message);
-            }
+        } catch (error) {
+            toast.error(error.message);
+        }
     };
 
     return (
-        <div className="flex item-center justify-center">
+        <div className="flex item-center justify-center flex-wrap mx-4 md:mx-0">
             <div
                 className={`mx-auto w-full max-w-lg bg-gray-100 
                     rounded-xl p-10 border border-black/10`}

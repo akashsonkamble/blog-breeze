@@ -20,7 +20,7 @@ const Login = () => {
     const loginHandler = async (data) => {
         try {
             const session = await authService.login(data);
-
+            
             if (session) {
                 const userData = await authService.getCurrentUser();
 
@@ -35,7 +35,7 @@ const Login = () => {
         }
     }
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex item-center justify-center flex-wrap mx-4 md:mx-0">
         <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10
         border border-black/10`}>
             <div className="mb-2 flex justify-center">
