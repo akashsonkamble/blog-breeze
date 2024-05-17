@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { Header, Footer } from "./components";
 
@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 import authService from "./appwrite/auth";
 
-import { login, logout } from "./store/authSlice";
+import { login, logout, rehydrate } from "./store/authSlice";
 
 import { Outlet } from "react-router";
 
@@ -17,18 +17,25 @@ const App = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        authService
-            .getCurrentUser()
-            .then((userData) => {
-                if (userData) {
-                    dispatch(login({ userData }));
-                } else {
-                    dispatch(logout());
-                }
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        const storedUserData = localStorage.getItem('userData');
+        if (storedUserData) {
+            dispatch(rehydrate(JSON.parse(storedUserData)));
+        } else {
+            authService
+                .getCurrentUser()
+                .then((userData) => {
+                    console.log("App :: userData :: ", userData);
+                    if (userData) {
+                        dispatch(login(userData));
+                    } else {
+                        dispatch(logout());
+                    }
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }
+        setLoading(false);
     }, [dispatch]);
 
     return !loading ? (
