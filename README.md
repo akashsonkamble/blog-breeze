@@ -4,13 +4,13 @@
 - Username: user1
 - Email: user1@example.com
 - Password: password123
+
 ![Signup Page](./public/responsive_sign-up.png)
 ![Signin Page](./public/responsive_sign-in.png)
 ![Home Page](./public/responsive_home.png)
 ![Add Post Page](./public/responsive_add-post.png)
 ![Post Details Page](./public/responsive_post-details.png)
 ![Update Post Page](./public/responsive_update-post.png)
-
 ![Signup Page](./public/sign-up.png)
 ![Signin Page](./public/sign-in.png)
 ![Home Page](./public/home.png)
